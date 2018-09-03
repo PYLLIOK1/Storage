@@ -21,15 +21,15 @@ namespace Storage.Controllers
         [Authorize]
         public ActionResult Index()
         {
-            var viewModel = new ListViewModel(_fileRepositoty);
+            var viewModel = new ListViewSearchModel(_fileRepositoty, "");
             ViewBag.Title = "Список файлов";
             return View("Index", viewModel);
         }
         [Authorize]
         [HttpPost]
-        public ActionResult Index(string search, string searchid)
+        public ActionResult Index(string search)
         {
-            var viewModel = new ListViewSearchModel(_fileRepositoty,search, searchid);
+            var viewModel = new ListViewSearchModel(_fileRepositoty,search);
             return PartialView("List", viewModel);
         }
         [Authorize]
