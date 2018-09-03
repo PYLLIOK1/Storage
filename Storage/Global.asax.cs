@@ -15,7 +15,6 @@ namespace Storage
             kernel.Bind<IFileRepository>().To<FileRepository>();
             kernel.Bind<IUserRepository>().To<UserRepository>();
             kernel.Bind<IAuthProvider>().To<AuthProvider>();
-            kernel.Bind<IFileProvider>().To<FileProvider>();
             return kernel;
         }
 

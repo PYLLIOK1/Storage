@@ -11,11 +11,11 @@ namespace Storage.Controllers
 {
     public class StorageController : Controller
     {
-        private readonly IFileProvider _fileProvider;
         private readonly IFileRepository _fileRepositoty;
-        public StorageController(IFileProvider fileProvider, IFileRepository fileRepository)
+        private readonly AuthProvider _authProvider;
+        public StorageController(IFileRepository fileRepository, AuthProvider authProvider)
         {
-            _fileProvider = fileProvider;
+            _authProvider = authProvider;
             _fileRepositoty = fileRepository;
         }
         [Authorize]
@@ -55,7 +55,7 @@ namespace Storage.Controllers
                 string filename = Path.GetFileName(upload.FileName);
                 upload.SaveAs(Server.MapPath(pathFile + filename));
                 DateTime date = DateTime.Now;
-                string author = User.Identity.Name;
+                int author = _authProvider.SearchUser(User.Identity.Name);
                 string path = Server.MapPath(pathFile + filename);
                 Icon extractedIcon = Icon.ExtractAssociatedIcon(Server.MapPath(pathFile + filename));
                 string icostr = filename;
@@ -64,7 +64,7 @@ namespace Storage.Controllers
                 Bitmap bitmap = extractedIcon.ToBitmap();
                 bitmap.Save(Server.MapPath(pathIco + icostr));
                 icostr = "Files/Ico/" + User.Identity.Name + "/" + icostr;
-                _fileProvider.AddFileUser(filename, date, author,icostr, path);
+                _fileRepositoty.Add(filename, date, author,icostr, path);
             }
             return RedirectToAction("Index");
         }

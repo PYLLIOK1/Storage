@@ -36,6 +36,13 @@ namespace Storage.Providers
                 return false;
             }
         }
+        public int SearchUser(string name)
+        {
+            var list = new ListUser(_userRepository);
+            User user = null;
+            user = list.Users.FirstOrDefault(u => u.Name == name);
+            return user.Id;
+        }
         public bool Register(string name, string password)
         {
             var list = new ListUser(_userRepository);

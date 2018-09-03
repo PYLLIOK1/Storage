@@ -12,9 +12,9 @@ namespace Storage.Core.Mapping
             Id(x => x.Id);
             Map(x => x.Name).Not.Nullable();
             Map(x => x.DateTime).Not.Nullable();
-            Map(x => x.Path);
-            Map(x => x.Ico);
-            Map(x => x.Author);
+            Map(x => x.Path).Not.Nullable();
+            Map(x => x.Ico).Not.Nullable();
+            References(x => x.Author).Cascade.SaveUpdate().Not.Nullable();
         }
     }
 }

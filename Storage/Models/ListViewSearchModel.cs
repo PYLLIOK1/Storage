@@ -9,7 +9,7 @@ namespace Storage.Models
     {
         public ListViewSearchModel(IFileRepository _fileRepository, string search)
         {
-            Files = _fileRepository.GetFileList().Where(x => x.Name.Contains(search) || x.Author.Contains(search) || x.DateTime.ToString().Contains(search)).ToList();
+            Files = _fileRepository.GetFileList().Where(x => x.Name.Contains(search) || x.Author.Name.Contains(search) || x.DateTime.ToString().Contains(search)).ToList();
         }
         public IList<File> Files { get; set; }
     }

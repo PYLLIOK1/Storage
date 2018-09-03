@@ -9,6 +9,6 @@ namespace Storage.Core.Object
         public virtual DateTime DateTime { get; set; }
         public virtual string Path { get; set; }
         public virtual string Ico { get; set; }
-        public virtual string Author { get; set; }
+        public virtual User Author { get; set; }
     }
 }

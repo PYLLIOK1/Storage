@@ -15,6 +15,8 @@ namespace Storage.Core.Mapping
             Map(x => x.Password)
                 .Length(50)
                 .Not.Nullable();
+            HasMany(x => x.Files)
+    .Inverse();
         }
     }
 }
