@@ -14,12 +14,13 @@ namespace Storage.Core
         }
         public IList<File> GetFileList()
         {
+            int num = 30;
             var Files = _session.Query<File>();
             foreach (var b in Files)
             {
-                if (b.Name.Length > 30)
+                if (b.Name.Length > num)
                 {
-                    b.Name = b.Name.Substring(0, 30) + "...";
+                    b.Name = b.Name.Substring(0, num) + "...";
                 }
             }
             return Files.ToList();
@@ -40,87 +41,5 @@ namespace Storage.Core
             query.SetParameter("Author", file.Author);
             a = query.ExecuteUpdate();
         }
-
-        public IList<File> SortAuthorFirst()
-        {
-            var Files = _session.Query<File>().OrderBy(u => u.Author);
-            foreach (var b in Files)
-            {
-                if (b.Name.Length > 30)
-                {
-                    b.Name = b.Name.Substring(0, 30) + "...";
-                }
-            }
-            return Files.ToList();
-        }
-
-        public IList<File> SortAuthorLast()
-        {
-            var Files = _session.Query<File>().OrderByDescending(u => u.Author);
-            foreach (var b in Files)
-            {
-                if (b.Name.Length > 30)
-                {
-                    b.Name = b.Name.Substring(0, 30) + "...";
-                }
-            }
-            return Files.ToList();
-        }
-
-
-        public IList<File> SortDateTimeFirst()
-        {
-            var Files = _session.Query<File>().OrderBy(u => u.DateTime);
-            foreach (var b in Files)
-            {
-                if (b.Name.Length > 30)
-                {
-                    b.Name = b.Name.Substring(0, 30) + "...";
-                }
-            }
-            return Files.ToList();
-        }
-
-        public IList<File> SortDateTimeLast()
-        {
-            var Files = _session.Query<File>().OrderByDescending(u => u.DateTime);
-            foreach (var b in Files)
-            {
-                if (b.Name.Length > 30)
-                {
-                    b.Name = b.Name.Substring(0, 30) + "...";
-                }
-            }
-            return Files.ToList();
-        }
-
-
-        public IList<File> SortNameFirst()
-        {
-            var Files = _session.Query<File>().OrderBy(u => u.Name);
-            foreach (var b in Files)
-            {
-                if (b.Name.Length > 30)
-                {
-                    b.Name = b.Name.Substring(0, 30) + "...";
-                }
-            }
-            return Files.ToList();
-        }
-
-        public IList<File> SortNameLast()
-        {
-            var Files = _session.Query<File>().OrderByDescending(u => u.Name);
-            foreach (var b in Files)
-            {
-                if (b.Name.Length > 30)
-                {
-                    b.Name = b.Name.Substring(0, 30) + "...";
-                }
-            }
-            return Files.ToList();
-        }
-
-
     }
 }
