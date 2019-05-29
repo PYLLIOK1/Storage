@@ -16,7 +16,7 @@ namespace Storage.Core.Mapping
                 .Length(50)
                 .Not.Nullable();
             HasMany(x => x.Files)
-    .Inverse();
+                .Inverse();
         }
     }
 }

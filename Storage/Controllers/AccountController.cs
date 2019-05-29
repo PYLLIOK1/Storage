@@ -30,7 +30,7 @@ namespace Storage.Controllers
         public ActionResult Login(UserModel model)
         {
 
-            if (ModelState.IsValid && _authProvider.Login(model.Name, model.Password))
+            if (ModelState.IsValid && _authProvider.Login(model))
             {
                 return RedirectToAction("Index", "Storage");
             }
@@ -57,7 +57,7 @@ namespace Storage.Controllers
         public ActionResult Register(RegisterModel model)
         {
             if (ModelState.IsValid)
-                if (_authProvider.Register(model.Name, model.Password))
+                if (_authProvider.Register(model))
                 {
                     return RedirectToAction("Index", "Storage");
                 }

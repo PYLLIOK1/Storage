@@ -21,14 +21,14 @@ namespace Storage.Providers
                 return HttpContext.Current.User.Identity.IsAuthenticated;
             }
         }
-        public bool Login(string name, string password)
+        public bool Login(UserModel model)
         {
             var list = new ListUser(_userRepository);
             User user = null;
-            user = list.Users.FirstOrDefault(u => u.Name == name && u.Password == password);
+            user = list.Users.FirstOrDefault(u => u.Name == model.Name && u.Password == model.Password);
             if (user != null)
             {
-                FormsAuthentication.SetAuthCookie(name, false);
+                FormsAuthentication.SetAuthCookie(model.Name, false);
                 return true;
             }
             else
@@ -43,14 +43,14 @@ namespace Storage.Providers
             user = list.Users.FirstOrDefault(u => u.Name == name);
             return user.Id;
         }
-        public bool Register(string name, string password)
+        public bool Register(RegisterModel model)
         {
             var list = new ListUser(_userRepository);
             User user = null;
-            user = list.Users.FirstOrDefault(u => u.Name == name && u.Password == password);
+            user = list.Users.FirstOrDefault(u => u.Name == model.Name && u.Password == model.Password);
             if (user == null)
             {
-                _userRepository.RegUser(new User { Name = name, Password = password });
+                _userRepository.RegUser(new User { Name = model.Name, Password = model.Password });
                 return true;
             }
             else

@@ -22,7 +22,6 @@ namespace Storage.Controllers
         public ActionResult Index()
         {
             var viewModel = new ListViewSearchModel(_fileRepositoty, "");
-            ViewBag.Title = "Список файлов";
             return View("Index", viewModel);
         }
         [Authorize]
@@ -54,9 +53,6 @@ namespace Storage.Controllers
                 }
                 string filename = Path.GetFileName(upload.FileName);
                 upload.SaveAs(Server.MapPath(pathFile + filename));
-                DateTime date = DateTime.Now;
-                int author = _authProvider.SearchUser(User.Identity.Name);
-                string path = Server.MapPath(pathFile + filename);
                 Icon extractedIcon = Icon.ExtractAssociatedIcon(Server.MapPath(pathFile + filename));
                 string icostr = filename;
                 string v = Path.GetExtension(filename); 
@@ -64,6 +60,9 @@ namespace Storage.Controllers
                 Bitmap bitmap = extractedIcon.ToBitmap();
                 bitmap.Save(Server.MapPath(pathIco + icostr));
                 icostr = "Files/Ico/" + User.Identity.Name + "/" + icostr;
+                string path = "Files/" + User.Identity.Name + "/" + filename;
+                DateTime date = DateTime.Now;
+                int author = _authProvider.SearchUser(User.Identity.Name);
                 _fileRepositoty.Add(filename, date, author,icostr, path);
             }
             return RedirectToAction("Index");

@@ -6,9 +6,9 @@ namespace Storage.Providers
     public interface IAuthProvider
     {
         bool IsLoggedIn { get; }
-        bool Login(string name, string password);
+        bool Login(UserModel model);
         int SearchUser(string name);
-        bool Register(string name, string password);
+        bool Register(RegisterModel model);
         void Logout();
     }
 }
